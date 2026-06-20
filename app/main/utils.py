@@ -9,13 +9,27 @@ def build_query(satellite_id):
     return (query, headers)
 
 def parse_response(response):
-    result={"msg":"", "satellite_id": "", "satellite_name": "", "line1":"", "line2":""}
+    # Sözlüğe "date" alanını ekliyoruz
+    result={"msg":"", "satellite_id": "", "satellite_name": "", "line1":"", "line2":"", "date": ""}
+    
     if response.status_code == 200:
         response_json = response.json()
         result["satellite_id"] = response_json["satelliteId"]
         result["satellite_name"] = response_json["name"]
         result["line1"] = response_json["line1"]
         result["line2"] = response_json["line2"]
+        
+        # API'den gelen tarihi alıp formatlıyoruz
+        raw_date = response_json.get("date", "")
+        if raw_date:
+            try:
+                # "2026-06-19T20:01:06+00:00" formatını datetime objesine çeviriyoruz
+                dt_obj = datetime.strptime(raw_date[:19], "%Y-%m-%dT%H:%M:%S")
+                # İstediğimiz "Gün.Ay.Yıl Saat:Dakika" formatına getiriyoruz
+                result["date"] = dt_obj.strftime("%d.%m.%Y %H:%M")
+            except:
+                result["date"] = raw_date # Parse edilemezse ham haliyle bırak
+        
         result["msg"] = "OK"
     else:
         result = None
