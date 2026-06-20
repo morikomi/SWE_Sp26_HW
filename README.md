@@ -1,7 +1,7 @@
 # Software Engineering - Spring 2026 - Homework
 
-- Name Surname:
-- ID:
+- Name Surname: Ersin Özdoğan
+- ID: 64230007
 
 ### A Simple Web Application for Earth-Orbiting Satellites
 This application allows you to run queries to the [TLE API](https://tle.ivanstanojevic.me/) to get the latest TLE information for a satellite/space object and calculate predicted position and velocity for the given time. There are intentionally placed code smells and missing parts throughout the application. Application-specific information can be found in this file. Homework instructions are provided in the Teams assignment. Do not modify any files that are not specified in the homework instructions.
