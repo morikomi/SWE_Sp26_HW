@@ -25,9 +25,24 @@ jobs:
           command: |
             . venv/bin/activate
             python -m unittest discover -s tests
+            
+  deploy_to_render:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: Trigger Render Deploy Hook
+          command: |
+            curl -X POST "$RENDER_DEPLOY_HOOK"
 
 workflows:
   version: 2
   flask_pipeline:
     jobs:
       - build_and_test
+      - deploy_to_render:
+          requires:
+            - build_and_test
+          filters:
+            branches:
+              only: main
