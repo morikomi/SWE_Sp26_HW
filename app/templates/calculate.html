@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row vh-100 align-items-center">
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-body h-100">
+          <p><b>Enter the date and time values to calculate the position of the ISS (Zarya) with a Two-Line Element (TLE) from TLE API</b></p>
+          <form name="DateTimeForm" id="DateTimeForm" method="post" action="/calculate">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+              <label class="form-label">Date</label>
+              {{ form.input_date_time(class="form-control")}}
+            </div>
+            <div class="form-footer">
+              <button type="submit" class="btn btn-secondary w-100">Calculate</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      {% if result is not none %}
+      <div class="card h-100">
+        <div class="card-body h-100">
+          <p>{{result.msg}}</p></p>
+          <p>{{result.tle_date_time}}</p>
+          <p>{{result.l1}}</p>
+          <p>{{result.l2}}</p>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+</div>
+{% endblock %}

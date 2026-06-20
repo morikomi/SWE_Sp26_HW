@@ -1,0 +1,7 @@
+Flask
+Flask-WTF
+coverage
+python-dotenv
+requests
+sgp4
+gunicorn
